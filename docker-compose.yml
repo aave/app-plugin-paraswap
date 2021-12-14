@@ -1,0 +1,14 @@
+version: "3.7"
+
+services:
+  nanos:
+    image: ghcr.io/ledgerhq/speculos
+    volumes:
+      - ./bin:/speculos/apps
+    ports:
+      - "1234:1234" # gdb
+      - "5000:5000" # api
+      - "40000:40000" # apdu
+      - "41000:41000" # vnc
+    command: "--model nanos ./apps/ethereum.elf --sdk 2.0 -l Aave:./apps/app.elf --seed secret --display headless --apdu-port 40000 --vnc-port 41000"
+    # Add `--vnc-password "<password>"` for macos users to use built-in vnc client.
